@@ -22,14 +22,14 @@ set_target_properties(onion_datetime PROPERTIES
 )
 
 # ---- Demo ----
-option(BUILD_ONION_DEMO "Build DateTime demo" ON)
+option(BUILD_ONION_DEMO "Build DateTime demo" OFF)
 
 if (BUILD_ONION_DEMO)
     add_subdirectory(demo)
 endif()
 
 # ---- Tests ----
-option(BUILD_ONION_TESTS "Build DateTime tests" ON)
+option(BUILD_ONION_TESTS "Build DateTime tests" OFF)
 
 if (BUILD_ONION_TESTS)
     add_subdirectory(tests)
