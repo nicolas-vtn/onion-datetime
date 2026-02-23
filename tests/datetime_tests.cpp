@@ -1,14 +1,15 @@
+#include <cassert>
 #include <exception>
 #include <format>
 #include <iostream>
 #include <stdexcept>
-#include <cassert>
 
 #include <onion/DateTime.hpp>
 
 using namespace onion;
 
-static bool TestDateTimeConstructors() {
+static bool TestDateTimeConstructors()
+{
 
 	// Default constructor
 	DateTime defaultDate{};
@@ -18,178 +19,225 @@ static bool TestDateTimeConstructors() {
 
 	// Test OutOfRange input
 	// Year out of range
-	try {
+	try
+	{
 		DateTime invalidDate(10998, 9, 11, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for year");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for year");
 	}
 
-	try {
+	try
+	{
 		DateTime invalidDate(-1, 9, 11, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for year");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for year");
 	}
 
 	// Month out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 13, 11, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for month");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for month");
 	}
 
 	// Month out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 0, 11, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for month");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for month");
 	}
 
 	// Day out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 35, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for day");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for day");
 	}
 
 	// Day out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 0, 14, 5, 55);
 		assert(false && "Expected out_of_range exception for day");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for day");
 	}
 
 	// Hour out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 24, 5, 55);
 		assert(false && "Expected out_of_range exception for hour");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for hour");
 	}
 
 	// Hour out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, -1, 5, 55);
 		assert(false && "Expected out_of_range exception for hour");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for hour");
 	}
 
 	// Minute out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, 60, 55);
 		assert(false && "Expected out_of_range exception for minute");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for minute");
 	}
 
 	// Minute out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, -1, 55);
 		assert(false && "Expected out_of_range exception for minute");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for minute");
 	}
 
 	// Second out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, 5, 60);
 		assert(false && "Expected out_of_range exception for second");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for second");
 	}
 
 	// Second out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, 5, -1);
 		assert(false && "Expected out_of_range exception for second");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for second");
 	}
 
 	// Millisecond out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, 5, 55, 1000);
 		assert(false && "Expected out_of_range exception for millisecond");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for millisecond");
 	}
 
 	// Millisecond out of range
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 9, 11, 14, 5, 55, -1);
 		assert(false && "Expected out_of_range exception for millisecond");
 	}
-	catch (const std::out_of_range& e) {
+	catch (const std::out_of_range& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected out_of_range exception for millisecond");
 	}
 
 	// Test Invalid calendar date (e.g., February 30)
-	try {
+	try
+	{
 		DateTime invalidDate(2020, 2, 30, 14, 5, 55);
 		assert(false && "Expected invalid_argument exception for calendar date");
 	}
-	catch (const std::invalid_argument& e) {
+	catch (const std::invalid_argument& e)
+	{
 	}
-	catch (...) {
+	catch (...)
+	{
 		assert(false && "Expected invalid_argument exception for calendar date");
 	}
 
 	return true;
 }
 
-static bool TestDateTimeUtcNow() {
+static bool TestDateTimeUtcNow()
+{
 	// ToDo : Implement
 	return true;
 }
 
-static bool TestDateTimeGetters() {
+static bool TestDateTimeGetters()
+{
 	DateTime dateTime(2020, 9, 11, 14, 5, 55, 123);
 	assert(dateTime.getYear() == 2020 && "Expected year to be 2020");
 	assert(dateTime.getMonth() == 9 && "Expected month to be 9");
@@ -201,14 +249,16 @@ static bool TestDateTimeGetters() {
 	return true;
 }
 
-static bool TestAssignationOperator() {
+static bool TestAssignationOperator()
+{
 	DateTime dt1(2020, 9, 11, 14, 5, 55);
 	DateTime dt2 = dt1; // Copy assignment
 	assert(dt1 == dt2 && "Expected dt1 to be equal to dt2 after copy assignment");
 	return true;
 }
 
-static bool TestDateTimeComparisonOperators() {
+static bool TestDateTimeComparisonOperators()
+{
 	DateTime dt1(2020, 9, 11, 14, 5, 55);
 	DateTime dt2(2020, 9, 11, 14, 5, 55);
 	DateTime dt3(2020, 9, 11, 14, 6, 0);
@@ -221,16 +271,19 @@ static bool TestDateTimeComparisonOperators() {
 	return true;
 }
 
-static bool TestDateTimeToString() {
+static bool TestDateTimeToString()
+{
 	DateTime dateTime(2020, 9, 11, 14, 5, 55, 123);
 	std::string isoString = dateTime.toString();
 	assert(isoString == "2020-09-11T14:05:55.123Z" && "Expected ISO string to be '2020-09-11T14:05:55.123Z'");
 	std::string customFormat = dateTime.toString("%Y/%m/%d %H:%M:%S");
-	assert(customFormat == "2020/09/11 14:05:55.123" && "Expected custom format string to be '2020/09/11 14:05:55.123'");
+	assert(customFormat == "2020/09/11 14:05:55.123" &&
+		   "Expected custom format string to be '2020/09/11 14:05:55.123'");
 	return true;
 }
 
-static bool TestDateTimeUnixTimestamp() {
+static bool TestDateTimeUnixTimestamp()
+{
 	DateTime dateTime(2020, 9, 11, 14, 5, 55);
 	long long unixTimestamp = dateTime.toUnixTimestamp();
 	assert(unixTimestamp == 1599833155 && "Expected Unix timestamp for 2020-09-11T14:05:55Z to be 1599833155");
@@ -240,58 +293,72 @@ static bool TestDateTimeUnixTimestamp() {
 int main()
 {
 	bool constructorsTestPassed = TestDateTimeConstructors();
-	if (constructorsTestPassed) {
+	if (constructorsTestPassed)
+	{
 		std::cout << "TestDateTimeConstructors passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeConstructors failed.");
 	}
 
 	bool utcNowTestPassed = TestDateTimeUtcNow();
-	if (utcNowTestPassed) {
+	if (utcNowTestPassed)
+	{
 		std::cout << "TestDateTimeUtcNow passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeUtcNow failed.");
 	}
 
 	bool gettersTestPassed = TestDateTimeGetters();
-	if (gettersTestPassed) {
+	if (gettersTestPassed)
+	{
 		std::cout << "TestDateTimeGetters passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeGetters failed.");
 	}
 
 	bool assignationOperatorTestPassed = TestAssignationOperator();
-	if (assignationOperatorTestPassed) {
+	if (assignationOperatorTestPassed)
+	{
 		std::cout << "TestAssignationOperator passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestAssignationOperator failed.");
 	}
 
 	bool comparisonOperatorsTestPassed = TestDateTimeComparisonOperators();
-	if (comparisonOperatorsTestPassed) {
+	if (comparisonOperatorsTestPassed)
+	{
 		std::cout << "TestDateTimeComparisonOperators passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeComparisonOperators failed.");
 	}
 
 	bool toStringTestPassed = TestDateTimeToString();
-	if (toStringTestPassed) {
+	if (toStringTestPassed)
+	{
 		std::cout << "TestDateTimeToString passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeToString failed.");
 	}
 
 	bool unixTimestampTestPassed = TestDateTimeUnixTimestamp();
-	if (unixTimestampTestPassed) {
+	if (unixTimestampTestPassed)
+	{
 		std::cout << "TestDateTimeUnixTimestamp passed." << std::endl;
 	}
-	else {
+	else
+	{
 		assert(false && "TestDateTimeUnixTimestamp failed.");
 	}
 
