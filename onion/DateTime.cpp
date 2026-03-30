@@ -62,6 +62,18 @@ namespace onion
 		return DateTime();
 	}
 
+	DateTime DateTime::FromUnixTimestamp(double unixTimestamp)
+	{
+		auto durationSinceEpoch = std::chrono::duration<double>(unixTimestamp);
+		auto timePoint = std::chrono::sys_time<std::chrono::milliseconds>{
+			duration_cast<std::chrono::milliseconds>(durationSinceEpoch)};
+
+		DateTime dt;
+		dt.m_timePoint = timePoint;
+
+		return dt;
+	}
+
 	// ---- Date components ----
 
 	int DateTime::getYear() const

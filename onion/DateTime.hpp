@@ -33,6 +33,8 @@ namespace onion
 		/// @return A DateTime representing the current UTC time.
 		static DateTime UtcNow();
 
+		static DateTime FromUnixTimestamp(double unixTimestamp);
+
 	  public:
 		/// Returns the year component of the UTC date.
 		/// @return Year in range [1, 9999].
