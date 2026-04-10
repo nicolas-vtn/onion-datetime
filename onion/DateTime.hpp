@@ -3,6 +3,8 @@
 #include <chrono>
 #include <string>
 
+#include "TimeSpan.hpp"
+
 namespace onion
 {
 
@@ -72,6 +74,10 @@ namespace onion
 		bool operator>(const DateTime& other) const;
 		bool operator>=(const DateTime& other) const;
 
+		TimeSpan operator-(const DateTime& other) const;
+		DateTime operator+(const TimeSpan& ts) const;
+		DateTime operator-(const TimeSpan& ts) const;
+
 	  public:
 		/// @brief Returns a string representation of the DateTime in ISO 8601 format (e.g., "2024-06-15T12:30:45.500Z").
 		/// @return A string representing the DateTime in ISO 8601 format.
@@ -130,6 +136,7 @@ namespace onion
 		TimePoint m_timePoint;
 
 	  private:
+		explicit DateTime(const TimePoint& tp) : m_timePoint(tp) {}
 		const TimePoint& timePoint() const noexcept { return m_timePoint; }
 		friend struct std::formatter<DateTime>;
 	};

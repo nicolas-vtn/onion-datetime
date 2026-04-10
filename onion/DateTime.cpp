@@ -39,22 +39,22 @@ namespace onion
 			throw std::out_of_range("millisecond out of range");
 
 		// ---- Construct calendar date ----
-		year_month_day ymd{ std::chrono::year{year},
+		year_month_day ymd{std::chrono::year{year},
 						   std::chrono::month{static_cast<unsigned>(month)},
-						   std::chrono::day{static_cast<unsigned>(day)} };
+						   std::chrono::day{static_cast<unsigned>(day)}};
 
 		if (!ymd.ok())
 			throw std::invalid_argument("invalid calendar date");
 
 		// ---- Convert to sys_days (UTC midnight) ----
-		sys_days dayPoint{ ymd };
+		sys_days dayPoint{ymd};
 
 		// ---- Convert milliseconds safely ----
-		auto ms = std::chrono::milliseconds{ static_cast<long long>(milliseconds) };
+		auto ms = std::chrono::milliseconds{static_cast<long long>(milliseconds)};
 
 		// ---- Build final sys_time<milliseconds> ----
-		m_timePoint = sys_time<std::chrono::milliseconds>{ dayPoint } + std::chrono::hours{ hours } +
-			std::chrono::minutes{ minutes } + std::chrono::seconds{ seconds } + ms;
+		m_timePoint = sys_time<std::chrono::milliseconds>{dayPoint} + std::chrono::hours{hours} +
+			std::chrono::minutes{minutes} + std::chrono::seconds{seconds} + ms;
 	}
 
 	DateTime DateTime::UtcNow()
@@ -79,21 +79,21 @@ namespace onion
 	int DateTime::getYear() const
 	{
 		auto days = floor<std::chrono::days>(m_timePoint);
-		year_month_day ymd{ days };
+		year_month_day ymd{days};
 		return int(ymd.year());
 	}
 
 	int DateTime::getMonth() const
 	{
 		auto days = floor<std::chrono::days>(m_timePoint);
-		year_month_day ymd{ days };
+		year_month_day ymd{days};
 		return unsigned(ymd.month());
 	}
 
 	int DateTime::getDay() const
 	{
 		auto days = floor<std::chrono::days>(m_timePoint);
-		year_month_day ymd{ days };
+		year_month_day ymd{days};
 		return unsigned(ymd.day());
 	}
 
@@ -102,28 +102,28 @@ namespace onion
 	int DateTime::getHours() const
 	{
 		auto dayPoint = floor<days>(m_timePoint);
-		hh_mm_ss<milliseconds> tod{ m_timePoint - dayPoint };
+		hh_mm_ss<milliseconds> tod{m_timePoint - dayPoint};
 		return int(tod.hours().count());
 	}
 
 	int DateTime::getMinutes() const
 	{
 		auto dayPoint = floor<days>(m_timePoint);
-		hh_mm_ss<milliseconds> tod{ m_timePoint - dayPoint };
+		hh_mm_ss<milliseconds> tod{m_timePoint - dayPoint};
 		return int(tod.minutes().count());
 	}
 
 	int DateTime::getSeconds() const
 	{
 		auto dayPoint = floor<days>(m_timePoint);
-		hh_mm_ss<milliseconds> tod{ m_timePoint - dayPoint };
+		hh_mm_ss<milliseconds> tod{m_timePoint - dayPoint};
 		return int(tod.seconds().count());
 	}
 
 	double DateTime::getMilliseconds() const
 	{
 		auto dayPoint = floor<days>(m_timePoint);
-		hh_mm_ss<milliseconds> tod{ m_timePoint - dayPoint };
+		hh_mm_ss<milliseconds> tod{m_timePoint - dayPoint};
 		return static_cast<double>(tod.subseconds().count());
 	}
 
@@ -156,6 +156,23 @@ namespace onion
 	bool DateTime::operator>=(const DateTime& other) const
 	{
 		return m_timePoint >= other.m_timePoint;
+	}
+
+	TimeSpan DateTime::operator-(const DateTime& other) const
+	{
+		using namespace std::chrono;
+		auto diff = m_timePoint - other.m_timePoint; // duration<milliseconds>
+		return TimeSpan(duration_cast<nanoseconds>(diff));
+	}
+
+	DateTime DateTime::operator+(const TimeSpan& ts) const
+	{
+		return DateTime(m_timePoint + std::chrono::duration_cast<std::chrono::milliseconds>(ts.GetDuration()));
+	}
+
+	DateTime DateTime::operator-(const TimeSpan& ts) const
+	{
+		return DateTime(m_timePoint - std::chrono::duration_cast<std::chrono::milliseconds>(ts.GetDuration()));
 	}
 
 	// ---- String representation ----

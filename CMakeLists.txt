@@ -4,7 +4,8 @@ project(onion_datetime LANGUAGES CXX)
 
 # ---- Library ----
 add_library(onion_datetime
-    onion/DateTime.cpp
+ "onion/DateTime.cpp"
+ "onion/TimeSpan.cpp"
 )
 add_library(onion::datetime ALIAS onion_datetime)
 
@@ -22,15 +23,15 @@ set_target_properties(onion_datetime PROPERTIES
 )
 
 # ---- Demo ----
-option(BUILD_ONION_DEMO "Build DateTime demo" OFF)
+option(ONION_BUILD_DEMO "Build DateTime demo" OFF)
 
-if (BUILD_ONION_DEMO)
+if (ONION_BUILD_DEMO)
     add_subdirectory(demo)
 endif()
 
 # ---- Tests ----
-option(BUILD_ONION_TESTS "Build DateTime tests" OFF)
+option(ONION_BUILD_TESTS "Build DateTime tests" OFF)
 
-if (BUILD_ONION_TESTS)
+if (ONION_BUILD_TESTS)
     add_subdirectory(tests)
 endif()
