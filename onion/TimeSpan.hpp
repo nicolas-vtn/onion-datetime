@@ -90,8 +90,6 @@ namespace onion
 		requires std::is_arithmetic_v<T>
 	TimeSpan TimeSpan::operator*(T scalar) const
 	{
-		using Rep = int64_t;
-
 		auto result = std::chrono::duration_cast<std::chrono::nanoseconds>(
 			std::chrono::duration<long double, std::nano>(m_Duration.count()) * static_cast<long double>(scalar));
 
